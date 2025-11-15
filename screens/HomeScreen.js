@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { StyleSheet, Text, View, ActivityIndicator } from "react-native";
-import MapView from "react-native-maps";
+import { StyleSheet, Text, View, ActivityIndicator, Image } from "react-native";
+import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
+import { Ionicons } from "@expo/vector-icons";
 
 const HomeScreen = () => {
   const [location, setLocation] = useState(null);
@@ -33,7 +34,7 @@ const HomeScreen = () => {
     <View style={styles.rootContainer}>
       <View style={styles.mapContainer}>
         <MapView
-          region={{
+          initialRegion={{
             // latitude: 34.111488,
             // longitude: -118.2826496,
             latitude: location.coords.latitude,
@@ -44,7 +45,16 @@ const HomeScreen = () => {
           showsUserLocation={true}
           followsUserLocation={true}
           style={styles.map}
-        />
+        >
+          <Marker
+            coordinate={{
+              latitude: 33.828635,
+              longitude: -117.947686,
+            }}
+          >
+            <Ionicons name="umbrella" size={28} color="red" />
+          </Marker>
+        </MapView>
       </View>
     </View>
   );
