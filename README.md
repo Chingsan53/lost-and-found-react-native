@@ -1,4 +1,4 @@
-# 📦 Lost & Found — React Native App
+# Lost & Found — React Native App
 
 A mobile application that allows users to **mark found items on a map** and lets others browse the map to see if their **lost belongings** have been found.
 
@@ -6,9 +6,9 @@ Built using **React Native**, **Expo**, **React Navigation**, **React Native Map
 
 ---
 
-## 🚀 Features
+## Features
 
-### ✔ Mark Found Items
+### Mark Found Items
 
 Users can report found items with:
 
@@ -19,11 +19,11 @@ Users can report found items with:
 
 These items appear as markers on the global map.
 
-### ✔ Search for Lost Items
+### Search for Lost Items
 
 Users who lost something can browse markers added by others to locate their items.
 
-### ✔ Real-Time Map Rendering
+### Real-Time Map Rendering
 
 - Shows user’s current position
 - Smooth drag, zoom, and pan
@@ -31,7 +31,7 @@ Users who lost something can browse markers added by others to locate their item
 
 ---
 
-## 📁 Project Setup
+## Project Setup
 
 ### 1. Clone the Repository
 
@@ -101,3 +101,25 @@ Add this to your app.json or app.config.js under expo.ios.infoPlist:
   }
 }
 ```
+
+## Technologies Used
+
+1. React Native with Expo - Core mobile development
+2. Expo Go App - Dev Tool and Preview Tool
+3. React Navigation - Navigation & Tabs
+4. React Native Maps - Map rendering
+5. Expo Location - GPS + Permission
+6. Ionicons - Icons for markers/UI
+
+## Contributors
+
+Chingsan Ly - cly53@csu.fullerton.edu
+Azucena Jimenez - azucenaljim1@csu.fullerton.edu
+
+## License
+
+MIT License — free for personal and commercial use.
+
+## Feedbacks
+
+Let me know if you want to provide feedbacks, bug reports, and suggestions to improve the app.
