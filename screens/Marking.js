@@ -9,6 +9,8 @@ import {
 } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import Constants from "expo-constants";
+
 const Marking = () => {
   const [nickname, setNickname] = useState("");
   const [address, setAddress] = useState("");
@@ -17,9 +19,11 @@ const Marking = () => {
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
+  const GOOGLE_KEY = Constants.expoConfig.extra.googleMapsApiKey;
+
   const fetchPlaces = async (input) => {
     const resp = await fetch(
-      `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${input}&key=AIzaSyAiKz6L79mvYQjVbP_tchixKm3m_UDSNFc&components=country:us`
+      `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${input}&key=${GOOGLE_KEY}&components=country:us`
     );
     const data = await resp.json();
     return data.predictions;
