@@ -6,6 +6,7 @@ import {
   TextInput,
   View,
   ScrollView,
+  Alert,
 } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -18,6 +19,7 @@ const Marking = () => {
   const [contact, setContact] = useState("");
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
+  const [selectedPlaceId, setSelectedPlaceId] = useState(null);
 
   const GOOGLE_KEY = Constants.expoConfig.extra.googleMapsApiKey;
 
@@ -39,6 +41,44 @@ const Marking = () => {
     }
   };
 
+  // Convert to Lat and Long
+  const fetchLatLng = async (placeId) => {
+    const resp = await fetch(
+      `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&key=${GOOGLE_KEY}`
+    );
+    const data = await resp.json();
+
+    return data.result.geometry.location;
+  };
+
+  const handleSubmit = async () => {
+    try {
+      let coords = null;
+      if (selectedPlaceId) {
+        coords = await fetchLatLng(selectedPlaceId);
+      }
+      console.log("Submitted:", {
+        nickname,
+        address,
+        coords,
+        description,
+        contact,
+      });
+      Alert.alert("Success", "Your found item has been submitted!");
+
+      // Clear all fields
+      setNickname("");
+      setQuery("");
+      setAddress("");
+      setSelectedPlaceId(null);
+      setDescription("");
+      setContact("");
+      setSuggestions([]);
+    } catch (err) {
+      Alert.alert("Error", "Something went wrong. Please try again.");
+    }
+  };
+
   return (
     <KeyboardAwareScrollView
       contentContainerStyle={styles.scroll}
@@ -52,7 +92,6 @@ const Marking = () => {
           Help someone reclaim what they've lost.
         </Text>
 
-        {/* Nickname */}
         <View style={styles.fieldContainer}>
           <Text style={styles.label}>Nickname</Text>
           <TextInput
@@ -82,6 +121,7 @@ const Marking = () => {
                     onPress={() => {
                       setAddress(item.description);
                       setQuery(item.description);
+                      setSelectedPlaceId(item.place_id);
                       setSuggestions([]);
                     }}
                   >
@@ -95,9 +135,9 @@ const Marking = () => {
           </View>
 
           {/* Optional button */}
-          <Pressable style={styles.mapButton}>
+          {/* <Pressable style={styles.mapButton}>
             <Text style={styles.mapButtonText}>📍 Select on Map</Text>
-          </Pressable>
+          </Pressable> */}
         </View>
 
         {/* Description */}
@@ -125,7 +165,7 @@ const Marking = () => {
           />
         </View>
 
-        <Pressable style={styles.submitButton}>
+        <Pressable style={styles.submitButton} onPress={handleSubmit}>
           <Text style={styles.submitText}>Submit</Text>
         </Pressable>
       </View>
