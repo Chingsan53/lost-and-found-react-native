@@ -23,9 +23,9 @@ const HomeScreen = () => {
 
   if (!location) {
     return (
-      <View>
+      <View style={styles.loading}>
         <ActivityIndicator size="large" />
-        <Text>Getting Location...</Text>
+        <Text style={styles.loadingText}>Getting Location...</Text>
       </View>
     );
   }
@@ -72,5 +72,13 @@ const styles = StyleSheet.create({
   map: {
     width: "100%",
     height: "100%",
+  },
+  loading: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  loadingText: {
+    fontSize: 18,
+    fontWeight: 600,
   },
 });
