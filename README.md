@@ -37,7 +37,7 @@ Users who lost something can browse markers added by others to locate their item
 
 ```sh
 git clone https://github.com/Chingsan53/lost-and-found-react-native.git
-cd lost-and-found
+cd lost-and-found-react-native
 ```
 
 ### 2. Install Dependencies
@@ -113,8 +113,8 @@ Add this to your app.json or app.config.js under expo.ios.infoPlist:
 
 ## Contributors
 
-Chingsan Ly - cly53@csu.fullerton.edu
-Azucena Jimenez - azucenaljim1@csu.fullerton.edu
+1. Chingsan Ly - cly53@csu.fullerton.edu
+2. Azucena Jimenez - azucenaljim1@csu.fullerton.edu
 
 ## License
 
