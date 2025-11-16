@@ -74,6 +74,7 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   loading: {
+    paddingTop: 150,
     justifyContent: "center",
     alignItems: "center",
   },
