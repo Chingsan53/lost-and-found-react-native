@@ -8,9 +8,12 @@ import {
   ScrollView,
   Alert,
 } from "react-native";
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Constants from "expo-constants";
+
+import { auth, db } from "../Firebase/firebaseConfig";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
 const Marking = () => {
   const [nickname, setNickname] = useState("");
@@ -52,18 +55,47 @@ const Marking = () => {
   };
 
   const handleSubmit = async () => {
+    if (!nickname || !address || !description || !contact) {
+      return Alert.alert("Missing Information", "Please fill in all fields.");
+    }
+
+    const user = auth.currentUser;
+    if (!user) {
+      return Alert.alert("Error", "You must be logged in.");
+    }
+    let coords = null;
     try {
-      let coords = null;
       if (selectedPlaceId) {
         coords = await fetchLatLng(selectedPlaceId);
       }
-      console.log("Submitted:", {
+    } catch (err) {
+      console.log("Google Places Error:", err);
+      return Alert.alert(
+        "Error",
+        "Could not fetch location. Please try typing again."
+      );
+    }
+    try {
+      await addDoc(collection(db, "users", user.uid, "foundItems"), {
         nickname,
         address,
-        coords,
+        lat: coords?.lat || null,
+        lng: coords?.lng || null,
         description,
         contact,
+        createdAt: serverTimestamp(),
       });
+
+      await addDoc(collection(db, "publicFoundItems"), {
+        lat: coords?.lat || null,
+        lng: coords?.lng || null,
+        shortDescription,
+        createdAt: serverTimestamp(),
+        contact,
+        nickname,
+        owner: user.uid, // allow owner to edit/delete later
+      });
+
       Alert.alert("Success", "Your found item has been submitted!");
 
       // Clear all fields
@@ -75,6 +107,7 @@ const Marking = () => {
       setContact("");
       setSuggestions([]);
     } catch (err) {
+      console.log("Firestore Error: ", err);
       Alert.alert("Error", "Something went wrong. Please try again.");
     }
   };

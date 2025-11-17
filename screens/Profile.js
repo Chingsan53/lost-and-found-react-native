@@ -1,6 +1,10 @@
 import { StyleSheet, Text, View, Image, Pressable } from "react-native";
+import { signOut } from "firebase/auth";
+import { auth } from "../Firebase/firebaseConfig";
 
 const Profile = () => {
+  const email = auth.currentUser?.email;
+  const username = email ? email.split("@")[0] : "";
   return (
     <View style={styles.rootContainer}>
       <Image
@@ -9,9 +13,18 @@ const Profile = () => {
         }}
         style={styles.profileImage}
       />
-      <Text style={styles.nameText}>Chingsan Ly</Text>
-      <Text style={styles.emailText}>chingsanly@example.com</Text>
-      <Pressable style={styles.logoutButton}>
+
+      <Text style={styles.nameText}>{username}</Text>
+      <Text style={styles.emailText}>{auth.currentUser?.email}</Text>
+
+      <Pressable
+        style={styles.logoutButton}
+        onPress={() => {
+          signOut(auth)
+            .then(() => console.log("User signed out"))
+            .catch((err) => console.log(err));
+        }}
+      >
         <Text style={styles.logoutText}>Log Out</Text>
       </Pressable>
     </View>

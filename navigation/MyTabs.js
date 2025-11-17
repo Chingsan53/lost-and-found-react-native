@@ -1,5 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
+
+// Screens
 import HomeScreen from "../screens/HomeScreen";
 import Marking from "../screens/Marking";
 import Profile from "../screens/Profile";
@@ -10,17 +12,27 @@ export default function MyTabs() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
-        tabBarIcon: ({ color, size }) => {
-          let iconName;
-          if (route.name === "Home") iconName = "map-outline";
-          if (route.name === "Profile") iconName = "person-outline";
-          if (route.name === "Marking") iconName = "navigate-outline";
-
-          return <Ionicons name={iconName} size={size} color={color} />;
-        },
+        headerShown: false,
         tabBarActiveTintColor: "#0BA5A4",
         tabBarInactiveTintColor: "gray",
-        headerShown: false,
+
+        tabBarIcon: ({ color, size }) => {
+          let iconName;
+
+          switch (route.name) {
+            case "Home":
+              iconName = "map-outline";
+              break;
+            case "Marking":
+              iconName = "navigate-outline";
+              break;
+            case "Profile":
+              iconName = "person-outline";
+              break;
+          }
+
+          return <Ionicons name={iconName} color={color} size={size} />;
+        },
       })}
     >
       <Tab.Screen name="Home" component={HomeScreen} />
