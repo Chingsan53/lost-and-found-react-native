@@ -77,7 +77,7 @@ const HomeScreen = () => {
                     <Text style={styles.calloutTitle}>{m.nickname}</Text>
 
                     <Text style={styles.calloutDescription}>
-                      Found: {m.shortDescription || "No description"}
+                      Found: {m.description || "No description"}
                     </Text>
 
                     {m.contact ? (

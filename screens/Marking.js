@@ -89,7 +89,7 @@ const Marking = () => {
       await addDoc(collection(db, "publicFoundItems"), {
         lat: coords?.lat || null,
         lng: coords?.lng || null,
-        shortDescription,
+        description,
         createdAt: serverTimestamp(),
         contact,
         nickname,
