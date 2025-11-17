@@ -22,7 +22,7 @@ const HomeScreen = () => {
       let loc = await Location.getCurrentPositionAsync({});
       setLocation(loc);
 
-      // 🌍 REAL-TIME LISTENER FOR MARKERS
+      // REAL-TIME LISTENER FOR MARKERS
       const unsub = onSnapshot(
         collection(db, "publicFoundItems"),
         (snapshot) => {
@@ -62,7 +62,7 @@ const HomeScreen = () => {
             longitudeDelta: 0.01,
           }}
           showsUserLocation={true}
-          followsUserLocation={true}
+          followsUserLocation={false}
           style={styles.map}
         >
           {markers.map((m) => (
