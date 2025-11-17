@@ -115,6 +115,7 @@ Add this to your app.json or app.config.js under expo.ios.infoPlist:
 
 1. Chingsan Ly - cly53@csu.fullerton.edu
 2. Azucena Jimenez - azucenaljim1@csu.fullerton.edu
+3. Atharva 
 
 ## License
 
